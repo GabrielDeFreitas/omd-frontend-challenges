@@ -1,3 +1,4 @@
+import storybook from 'eslint-plugin-storybook'
 import js from '@eslint/js'
 import globals from 'globals'
 import react from 'eslint-plugin-react'
@@ -10,11 +11,8 @@ export default [
   {
     ignores: ['dist', 'build', 'coverage', 'node_modules'],
   },
-
   js.configs.recommended,
-
   ...tseslint.configs.recommended,
-
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
     languageOptions: {
@@ -68,4 +66,5 @@ export default [
       },
     },
   },
+  ...storybook.configs['flat/recommended'],
 ]
