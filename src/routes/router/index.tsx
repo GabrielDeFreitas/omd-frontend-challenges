@@ -1,15 +1,17 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RoutesUrl } from '..'
+import { GenericPageController } from '../../pages/generic-page/index.page'
+import { GenericErrorPageController } from '../../pages/generic-error-page/index.page'
 
 export function RouteProvider() {
   const routes = [
     {
       path: '*',
-      element: <h1 className="text-3xl font-bold underline">error-area</h1>,
+      element: <GenericErrorPageController />,
     },
     {
       path: RoutesUrl.BASE_URL,
-      element: <h1 className="text-3xl font-bold underline">base-url</h1>,
+      element: <GenericPageController />,
     },
   ]
 
