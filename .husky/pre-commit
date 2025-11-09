@@ -1,0 +1,29 @@
+echo "🔍 Running ESLint..."
+pnpm lint || {
+  echo ""
+  echo "🚫 ESLint found issues! Please fix them before committing."
+  echo ""
+  exit 1
+}
+
+echo "🔍 Running Cypress component tests..."
+pnpm cy:run || {
+  echo ""
+  echo "🚫 Cypress tests failed! Please fix them before committing."
+  echo ""
+  exit 1
+}
+
+echo "🔍 Validating commit message..."
+COMMIT_MSG="$(git log -1 --pretty=%B)"
+echo "$COMMIT_MSG" | pnpm exec commitlint || {
+  echo ""
+  echo "🚫 Invalid commit!"
+  echo "Your commit message must follow Conventional Commits:"
+  echo "Format: <type>[optional scope]: <description>"
+  echo "Example: feat(router): add login route"
+  echo ""
+  exit 1
+}
+
+echo "✅ All checks passed!"
