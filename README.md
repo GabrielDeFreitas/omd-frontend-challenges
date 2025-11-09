@@ -1,73 +1,39 @@
-# React + TypeScript + Vite
+# OMD Frontend Challenges
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Instalação e Execução
 
-Currently, two official plugins are available:
+Substitua `pnpm` pelo gerenciador de pacotes de sua preferência (`npm` ou `yarn`).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Command        | Action                                                        |
+| :------------- | :------------------------------------------------------------ |
+| `pnpm install` | Instala todas as dependências do projeto.                     |
+| `pnpm dev`     | Inicia o servidor de desenvolvimento em `localhost:3000`      |
+| `pnpm build`   | Gera a versão de produção na pasta `./dist/`                  |
+| `pnpm preview` | Pré-visualiza localmente a build de produção antes do deploy. |
 
-## React Compiler
+## Lint e Formatação
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Command         | Action                                                                |
+| :-------------- | :-------------------------------------------------------------------- |
+| `pnpm lint`     | Executa o ESLint para verificar a qualidade e o padrão do código.     |
+| `pnpm lint:fix` | Executa o ESLint e corrige automaticamente problemas quando possível. |
 
-## Expanding the ESLint configuration
+## Testes
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Command        | Action                                                        |
+| :------------- | :------------------------------------------------------------ |
+| `pnpm cy:open` | Abre o Cypress em modo interativo para testes de componentes. |
+| `pnpm cy:run`  | Executa testes de componentes no Cypress em modo headless.    |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Storybook
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+| Command                | Action                                                                       |
+| :--------------------- | :--------------------------------------------------------------------------- |
+| `pnpm storybook`       | Inicia o servidor de desenvolvimento do Storybook na porta `localhost:6006`. |
+| `pnpm build-storybook` | Gera os arquivos estáticos do Storybook para deploy.`localhost:3000`         |
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Automação com Plop.js
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+| Command         | Action                                               |
+| :-------------- | :--------------------------------------------------- |
+| `pnpm generate` | Executa o Plop.js para gerar componentes ou páginas. |

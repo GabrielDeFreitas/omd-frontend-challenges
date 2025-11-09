@@ -1,0 +1,12 @@
+echo "🔍 Validating commit message..."
+pnpm exec commitlint --edit "$1" || {
+  echo ""
+  echo "🚫 Invalid commit message!"
+  echo "Your commit message must follow Conventional Commits:"
+  echo "Format: <type>[optional scope]: <description>"
+  echo "Example: feat(router): add login route"
+  echo ""
+  exit 1
+}
+
+echo "✅ Commit message is valid!"
