@@ -26,4 +26,4 @@ echo "$COMMIT_MSG" | pnpm exec commitlint || {
   exit 1
 }
 
-echo "✅ All checks passed!"
+echo "✅ ESLint and Cypress checks passed!"
