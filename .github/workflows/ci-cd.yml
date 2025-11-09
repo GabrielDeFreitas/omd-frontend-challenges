@@ -1,0 +1,30 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: |
+          npm install -g pnpm
+          pnpm install
+
+      - name: Build
+        run: pnpm build
