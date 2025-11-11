@@ -12,11 +12,11 @@ export const plansDb: Plan[] = [
       {
         id: '1',
         descricao: 'Definir arquitetura da dashboard',
-        status: 'Feita',
+        status: 'A Fazer',
         prazo: '2025-10-25',
       },
       { id: '2', descricao: 'Criar mockups e protótipos', status: 'A Fazer', prazo: '2025-10-28' },
-      { id: '3', descricao: 'Integrar dados de APIs', status: 'Fazendo', prazo: '2025-11-05' },
+      { id: '3', descricao: 'Integrar dados de APIs', status: 'A Fazer', prazo: '2025-11-05' },
     ],
   },
   {

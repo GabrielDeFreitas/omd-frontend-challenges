@@ -18,3 +18,14 @@ export interface Plan {
   prioridade: Priority
   acoes: Action[]
 }
+
+export interface BoardTaskViewProps {
+  plans: Plan[]
+  isLoading: boolean
+  viewMode: 'board' | 'table'
+  setViewMode: (mode: 'board' | 'table') => void
+  onOpenCreate: () => void
+  onEdit: (plan: Plan) => void
+  onDelete: (id: string) => void
+  onToggleActionStatus: (planId: string, actionId: string, currentStatus: string) => void
+}

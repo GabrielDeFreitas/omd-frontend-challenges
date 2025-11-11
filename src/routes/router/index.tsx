@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { RoutesUrl } from '..'
-import { GenericPageController } from '../../pages/generic-page/index.page'
 import { PageNotFoundController } from '../../pages/page-not-found/index.page'
+import BoardTaskController from '@/pages/board-task/controller/board-task.controller'
 
 export function RouteProvider() {
   const routes = [
@@ -11,7 +11,7 @@ export function RouteProvider() {
     },
     {
       path: RoutesUrl.BASE_URL,
-      element: <GenericPageController />,
+      element: <BoardTaskController />,
     },
   ]
 
