@@ -27,5 +27,5 @@ export interface BoardTaskViewProps {
   onOpenCreate: () => void
   onEdit: (plan: Plan) => void
   onDelete: (id: string) => void
-  onToggleActionStatus: (planId: string, actionId: string, currentStatus: string) => void
+  onToggleActionStatus: (planId: string, actionId: string, currentStatus: ActionStatus) => void
 }
