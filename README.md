@@ -16,6 +16,7 @@ Este projeto foi desenvolvido como parte de um desafio de frontend, utilizando t
 - **Cypress**: Framework de testes automatizados voltado para validação de componentes e interações da interface.
 - **Eslint e Prettier**: Ferramenta rápida de linting e formatação de código.
 - **Plop.js**: Gerador de código automatizado para componentes, páginas e hooks.
+- **React Hook Form + Zod**: Para validação e gerenciamento de formulários.
 
 ## Arquitetura do Projeto
 
