@@ -15,8 +15,9 @@ import { getActionIcon, getStatusIcon } from '@/lib/utils'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
 import { Separator } from '@/components/separator'
 import { Skeleton } from '@/components/skeleton'
+import { memo } from 'react'
 
-export function BoardTaskView({
+function BoardTaskView({
   plans,
   isLoading,
   viewMode,
@@ -55,7 +56,7 @@ export function BoardTaskView({
         <CardTitle>Gestão de Planos</CardTitle>
         <CardDescription>Visualize e gerencie seus planos de ação.</CardDescription>
         <CardAction>
-          <Button size="sm" onClick={onOpenCreate}>
+          <Button onClick={onOpenCreate} size="sm">
             <PlusCircle className="w-4 h-4" />
             Novo Plano
           </Button>
@@ -67,10 +68,10 @@ export function BoardTaskView({
   function shouldRenderTabList() {
     return (
       <TabsList className="flex gap-1">
-        <TabsTrigger value="board" onClick={() => setViewMode('board')}>
+        <TabsTrigger onClick={() => setViewMode('board')} value="board">
           <LayoutGrid className="w-4 h-4 mr-1" /> Cards
         </TabsTrigger>
-        <TabsTrigger value="table" onClick={() => setViewMode('table')}>
+        <TabsTrigger onClick={() => setViewMode('table')} value="table">
           <TableProperties className="w-4 h-4 mr-1" /> Tabela
         </TabsTrigger>
       </TabsList>
@@ -86,12 +87,12 @@ export function BoardTaskView({
               const plansInStatus = plans.filter(plan => plan.status === status)
 
               return (
-                <div key={status} className="shrink-0 w-96 bg-slate-50 rounded-md">
+                <div className="shrink-0 w-96 bg-slate-50 rounded-md" key={status}>
                   <div className="flex items-center justify-between py-4 px-3">
                     <div className="flex items-center gap-2">
                       {getStatusIcon(status)}
                       <h3 className="font-semibold text-sm">{status}</h3>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge className="text-xs" variant="outline">
                         {plansInStatus.length}
                       </Badge>
                     </div>
@@ -103,7 +104,7 @@ export function BoardTaskView({
                         <Card key={plan.id}>
                           <CardHeader>
                             <CardTitle>
-                              <Badge variant="outline" className="text-xs uppercase">
+                              <Badge className="text-xs uppercase" variant="outline">
                                 {plan.id}
                               </Badge>
                             </CardTitle>
@@ -116,10 +117,10 @@ export function BoardTaskView({
                               </div>
                             </CardDescription>
                             <CardAction>
-                              <Button variant="ghost" size="icon" onClick={() => onEdit(plan)}>
+                              <Button onClick={() => onEdit(plan)} size="icon" variant="ghost">
                                 <Pencil className="w-4 h-4" />
                               </Button>
-                              <Button variant="ghost" size="icon" onClick={() => onDelete(plan.id)}>
+                              <Button onClick={() => onDelete(plan.id)} size="icon" variant="ghost">
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </CardAction>
@@ -136,9 +137,9 @@ export function BoardTaskView({
                               <div className="flex flex-row gap-2 flex-wrap">
                                 {plan.acoes.map(acao => (
                                   <Badge
+                                    className="text-xs flex items-center gap-1"
                                     key={acao.id}
                                     variant="outline"
-                                    className="text-xs flex items-center gap-1"
                                   >
                                     {getActionIcon(acao.status)}
                                     <span>{acao.descricao}</span>
@@ -210,10 +211,10 @@ export function BoardTaskView({
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
-                    <Button variant="ghost" size="icon" onClick={() => onEdit(plan)}>
+                    <Button onClick={() => onEdit(plan)} size="icon" variant="ghost">
                       <Pencil />
                     </Button>
-                    <Button variant="ghost" size="icon" onClick={() => onDelete(plan.id)}>
+                    <Button onClick={() => onDelete(plan.id)} size="icon" variant="ghost">
                       <Trash2 />
                     </Button>
                   </div>
@@ -222,7 +223,7 @@ export function BoardTaskView({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={7} className="text-center text-sm text-muted-foreground py-8">
+              <TableCell className="text-center text-sm text-muted-foreground py-8" colSpan={7}>
                 Nenhuma ação registrada
               </TableCell>
             </TableRow>
@@ -238,12 +239,12 @@ export function BoardTaskView({
         <Card>
           {shouldRenderHeader()}
 
-          <Tabs defaultValue="board" className="px-4">
+          <Tabs className="px-4" defaultValue="board">
             {shouldRenderTabList()}
           </Tabs>
 
           <CardContent>
-            <Tabs value={viewMode} onValueChange={value => setViewMode(value as 'board' | 'table')}>
+            <Tabs onValueChange={value => setViewMode(value as 'board' | 'table')} value={viewMode}>
               <TabsContent value="board">{shouldRenderBoard()}</TabsContent>
               <TabsContent value="table">{shouldRenderTable()}</TabsContent>
             </Tabs>
@@ -253,3 +254,5 @@ export function BoardTaskView({
     </main>
   )
 }
+
+export default memo(BoardTaskView)

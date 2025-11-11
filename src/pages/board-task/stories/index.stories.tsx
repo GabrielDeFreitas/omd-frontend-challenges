@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { BoardTaskView } from '../view/board-task.view'
 import { plansDb } from '@/mocks'
+import boardTaskView from '../view/board-task.view'
+import type { Plan } from '../types'
 
 const meta = {
   title: 'pages/board-task-view',
-  component: BoardTaskView,
+  component: boardTaskView,
   parameters: {
     layout: 'fullscreen',
     docs: {
@@ -18,7 +19,7 @@ O **BoardTaskView** renderiza a visualização de gestão de planos com dois mod
     },
   },
   tags: ['autodocs'],
-} satisfies Meta<typeof BoardTaskView>
+} satisfies Meta<typeof boardTaskView>
 
 export default meta
 
@@ -30,7 +31,7 @@ const defaultArgs = {
   viewMode: 'board' as const,
   setViewMode: (mode: 'board' | 'table') => console.log('View mode:', mode),
   onOpenCreate: () => console.log('Create clicked'),
-  onEdit: (plan: any) => console.log('Edit:', plan.id),
+  onEdit: (plan: Plan) => console.log('Edit:', plan.id),
   onDelete: (id: string) => console.log('Delete:', id),
   onToggleActionStatus: (planId: string, actionId: string, status: string) =>
     console.log('Toggle:', { planId, actionId, status }),

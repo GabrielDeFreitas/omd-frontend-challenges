@@ -6,8 +6,9 @@ import { useUpdatePlan } from '@/hooks/use-update-plan'
 import { useDeletePlan } from '@/hooks/use-delete-plan'
 import { useUpdateActionStatus } from '@/hooks/use-update-action-status'
 import { calculatePlanStatus } from '@/lib/utils'
-import { BoardTaskView } from '../view/board-task.view'
 import { PlanModal } from '@/components/plan-modal'
+import BoardTaskView from '../view/board-task.view'
+import toast from 'react-hot-toast'
 
 type ViewMode = 'board' | 'table'
 
@@ -58,9 +59,26 @@ export default function BoardTaskController() {
       const planWithStatus = { ...planData, status: updatedStatus }
 
       if (editingPlan) {
-        updatePlan.mutate({ id: editingPlan.id, updates: planWithStatus })
+        updatePlan.mutate(
+          { id: editingPlan.id, updates: planWithStatus },
+          {
+            onSuccess: () => {
+              toast.success('Plano atualizado com sucesso!')
+            },
+            onError: () => {
+              toast.error('Erro ao atualizar plano.')
+            },
+          }
+        )
       } else {
-        createPlan.mutate(planWithStatus)
+        createPlan.mutate(planWithStatus, {
+          onSuccess: () => {
+            toast.success('Plano criado com sucesso!')
+          },
+          onError: () => {
+            toast.error('Erro ao criar plano.')
+          },
+        })
       }
 
       closeModal()
@@ -92,20 +110,20 @@ export default function BoardTaskController() {
   return (
     <React.Fragment>
       <BoardTaskView
-        plans={plans}
         isLoading={isLoading}
-        viewMode={viewMode}
-        setViewMode={setViewMode}
-        onOpenCreate={openCreateModal}
-        onEdit={handleEdit}
         onDelete={handleDelete}
+        onEdit={handleEdit}
+        onOpenCreate={openCreateModal}
         onToggleActionStatus={handleActionStatusChange}
+        plans={plans}
+        setViewMode={setViewMode}
+        viewMode={viewMode}
       />
 
       <PlanModal
+        initialPlan={editingPlan ?? undefined}
         isOpen={isModalOpen}
         onClose={closeModal}
-        initialPlan={editingPlan ?? undefined}
         onSubmit={handleCreateOrUpdate}
       />
     </React.Fragment>

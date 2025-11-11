@@ -92,10 +92,10 @@ export function PlanModal({
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
-      role="dialog"
       aria-modal="true"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
       onClick={onClose}
+      role="dialog"
     >
       <div
         className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto"
@@ -104,12 +104,12 @@ export function PlanModal({
         <div className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-xl font-semibold">{initialPlan ? 'Editar Plano' : 'Novo Plano'}</h2>
-            <Button variant="ghost" size="icon" onClick={onClose}>
+            <Button onClick={onClose} size="icon" variant="ghost">
               <X className="w-4 h-4" />
             </Button>
           </div>
 
-          <form onSubmit={handleSubmit(submit)} className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit(submit)}>
             <div>
               <label className="block text-sm font-medium mb-1">Título *</label>
               <input {...register('titulo')} className="w-full px-3 py-2 border rounded-md" />
@@ -143,23 +143,27 @@ export function PlanModal({
               <div className="flex items-center justify-between mb-2">
                 <label className="block text-sm font-medium">Ações *</label>
                 <Button
-                  type="button"
-                  size="sm"
                   onClick={() => append({ descricao: '', status: 'A Fazer', prazo: '' })}
+                  size="sm"
+                  type="button"
                 >
                   <PlusCircle className="w-4 h-4 mr-2" /> Adicionar Ação
                 </Button>
               </div>
               {errors.acoes && (
-                <p className="text-xs text-red-600 mb-2">{(errors.acoes as any)?.message}</p>
+                <p className="text-xs text-red-600 mb-2">
+                  {'message' in errors.acoes
+                    ? errors.acoes.message
+                    : 'Pelo menos uma ação é necessária'}
+                </p>
               )}
 
               {fields.map((field, index) => (
-                <div key={field.id} className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-2" key={field.id}>
                   <input
                     {...register(`acoes.${index}.descricao` as const)}
-                    placeholder="Descrição"
                     className="flex-1 px-3 py-2 border rounded-md"
+                    placeholder="Descrição"
                   />
                   <select
                     {...register(`acoes.${index}.status` as const)}
@@ -175,10 +179,10 @@ export function PlanModal({
                     className="px-2 py-2 border rounded-md"
                   />
                   <Button
+                    onClick={() => remove(index)}
+                    size="icon"
                     type="button"
                     variant="destructive"
-                    size="icon"
-                    onClick={() => remove(index)}
                   >
                     <Trash2 className="w-4 h-4" />
                   </Button>
@@ -186,7 +190,7 @@ export function PlanModal({
               ))}
             </div>
 
-            <Button type="submit" className="w-full">
+            <Button className="w-full" type="submit">
               Salvar
             </Button>
           </form>
